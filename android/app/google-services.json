@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "810824469369",
+    "firebase_url": "https://xablau-84077.firebaseio.com",
+    "project_id": "xablau-84077",
+    "storage_bucket": "xablau-84077.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810824469369:android:d07a4487d1e284fd",
+        "android_client_info": {
+          "package_name": "com.example.helo_imoveis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810824469369-m2dp7ngdduabpg5itmlpl88g66rrrj8n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.helo_imoveis",
+            "certificate_hash": "ad2f63ddc2f20d483f37792f1306ec3b074dd330"
+          }
+        },
+        {
+          "client_id": "810824469369-6m1rkbeamogfs4qbuphbk451dbo6762a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtir0_5xYC_0Sb0CDq1hQP4bwPkvwonYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810824469369-6m1rkbeamogfs4qbuphbk451dbo6762a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
