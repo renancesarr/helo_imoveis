@@ -21,7 +21,7 @@ class Imovel{
   Map<dynamic, dynamic> caracteristicas;
   Map<dynamic, dynamic> caracteristicasCondominio;
   List<String> imagens;
-  bool alugar;//false para venda, true para alugar
+  String alugar;//false para venda, true para alugar
   bool ativo;
   bool condominio;
 
@@ -81,6 +81,14 @@ class Imovel{
       json['id']=snapshot.documents.length;
     }
     return json;
+  }
+
+  void setCategoria(String newCategoria){
+    this.tipoImovel = newCategoria;
+  }
+
+  void setAlugar(String newAlugar){
+    this.alugar = newAlugar;
   }
 
 }

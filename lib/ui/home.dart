@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:helo_imoveis/objects/config.dart';
 import 'package:helo_imoveis/objects/imovel.dart';
+import 'package:helo_imoveis/ui/imovel.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class _HomePageState extends State<HomePage> {
 
   String _search;
   List<Imovel> listImoveis = new List();
+  Map<String, dynamic> jsonConfig = new Map();
 
   Future<List<Imovel>> _getListImoveis() async {
     List<Imovel> imoveis = new List();
@@ -24,10 +27,20 @@ class _HomePageState extends State<HomePage> {
     return imoveis;
   }
 
+  Future<Map<String, dynamic >> _categoria() async{
+    DocumentSnapshot snapshot = await Firestore.instance.collection("config").document("-LjJPZoEkq-sdDWahI5T").get();
+    Map<String, dynamic> json = snapshot.data;
+    Config conf = new Config.fromMap(json);
+    return json;
+  }
+
   @override
   void initState(){
     super.initState();
-    
+
+    //_categoria();
+    /* Config conf = new Config(['casa','apartamento'], ['goias'], ['morrinhos'], ['centro','setor aeroporto']);
+    conf.salvarConfig(); */
   }
   Widget build(BuildContext context){
     return Scaffold(
@@ -38,7 +51,9 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: (){
+          _showImovelPage();
+        },
         child: Icon(Icons.add),
         backgroundColor: Colors.pinkAccent,
       ),
@@ -49,8 +64,8 @@ class _HomePageState extends State<HomePage> {
             child: TextField(
               decoration: InputDecoration(
                   labelText: "Pesquisar Logadouro!",
-                  labelStyle: TextStyle(color: Colors.black),
-                  border: OutlineInputBorder()
+                  labelStyle: TextStyle(color: Colors.black38),
+                  border: OutlineInputBorder(),
               ),
               style: TextStyle(color: Colors.black, fontSize: 18.0),
               textAlign: TextAlign.center,
@@ -179,6 +194,67 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      onTap: (){
+        _showOptions(context, index);
+      },
+    );
+  }
+  void _showOptions(BuildContext context, int index){
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return BottomSheet(
+            onClosing: (){},
+            builder: (context){
+              return Container(
+                padding: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: FlatButton(
+                        child: Text("Alugar",
+                          style: TextStyle(color: Colors.red, fontSize: 20.0),
+                        ),
+                        onPressed: (){
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: FlatButton(
+                        child: Text("Editar",
+                          style: TextStyle(color: Colors.red, fontSize: 20.0),
+                        ),
+                        onPressed: (){
+                          Navigator.pop(context);
+                          _showImovelPage(imovel: listImoveis[index]);
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: FlatButton(
+                        child: Text("Excluir",
+                          style: TextStyle(color: Colors.red, fontSize: 20.0),
+                        ),
+                        onPressed: (){
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+    );
+  }
+
+  void _showImovelPage({Imovel imovel}){
+    Navigator.push(context, 
+      MaterialPageRoute(builder: (context)=> ImovelPage(imovel: imovel,))
     );
   }
 }
